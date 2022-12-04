@@ -1,0 +1,29 @@
+_id: req_63c7efa68a284389b821c112b59ce29c
+type: Request
+parentId: fld_145cc1c6a61c43d4bf8fb7ddbf0e93cb
+modified: 1662528688309
+created: 1662369455954
+url: "{{ _.baseURL }}/graphql"
+name: getMicroAreabyId
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetMicroareaById(id: 1) {\n\t\tid\n\t\tsourcingZone
+    {\n\t\t\tid\n\t\t\tzone {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_3f7ef1f7afd84374882574983ac1f12d
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662290106797
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

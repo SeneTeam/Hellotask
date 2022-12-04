@@ -1,0 +1,147 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": [
+    "failed",
+    "busy",
+    "unreachable"
+  ],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "{{worker_name_bangla}} আপা",
+        "আপনার ",
+        "{{microarea_name}} এর ",
+        "কাজটি ",
+        "{{ETA}} ",
+        "পরে শুরু হবে। আপনি এখনই আপনার মোবাইল অ্যাপ্রণ, মাথার টুপি, আইডি কার্ড আর মাস্ক পরে কাজে বের হয়ে যান। সব কিছু ঠিক ঠাক থাকলে ১ চাপুন। আজকে কাজে না যেতে পারলে ২ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ willGoCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "WILL_GO"
+        },
+        "2": {
+          "goto": "WILL_NOT_GO"
+        }
+      }
+    },
+    "WILL_GO": {
+      "text": [
+        "আচ্ছা ঠিকাছে আপা, ঠিক মতো কাজে গিয়ে এই নাম্বারে আবার কল করে ৪ চেপে কাজ টি শুরু করে দিএন। ঠিকানা শুনতে ১ চাপুন। অফিসে কথা বলতে চাইলে ০ চাপুন। এসবের কিছুই না লাগলে ৯ চেপে কল কেটে দিন।"
+      ],
+      "options": {
+        "0": {
+          "callback": "{{ callToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callAgent": true
+        },
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "ADDRESS": {
+      "text": [
+        "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+        "{{task_start_time}} এর",
+        "{{microarea_name}} এর",
+        "কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+        "{{order_address}}",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "WILL_NOT_GO": {
+      "text": [
+        "আজকে না গেলে কিন্তু আপনার বেতন থেকে ",
+        "{{payment_per_day}} টাকা",
+        "কাটা যাবে আর রেটিংও খারাপ হয়ে যাবে। এরপরে কাজ আসলে অফিস আর আপনাকে কাজ দিবে না। আসোলেই কি আজকে কাজে যাবেন না? যেতে পারলে ১ চাপুন। আর একেবারেই যেতে না পারলে আবার ২ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ willGoCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "WILL_GO"
+        },
+        "2": {
+          "callback": "{{ willNotGoCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "ABSENT"
+        }
+      }
+    },
+    "ABSENT": {
+      "text": [
+        "আমরা আজকে তাহলে গ্রাহকের বাসায় অন্য কাউকে পাঠানো যায় কিনা খুঁজে দেখি। কাল থেকে নিয়মিত প্যাকেজে যাবেন।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": [
+        "আপনি ভুল বাটন চেপেছেন।"
+      ],
+      "goto": "__BACK__"
+    }
+  }
+}

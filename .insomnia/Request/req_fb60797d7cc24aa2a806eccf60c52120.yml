@@ -1,0 +1,30 @@
+_id: req_fb60797d7cc24aa2a806eccf60c52120
+type: Request
+parentId: fld_145cc1c6a61c43d4bf8fb7ddbf0e93cb
+modified: 1662371621421
+created: 1662369625062
+url: "{{ _.baseURL }}/graphql"
+name: updateMicroArea
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdateMicroarea(\n\t\tid:
+    1\n\t\tupdateMicroareaInput: { name: \"Updated Micro Area\", isDisabled:
+    false }\n\t) {\n\t\tid\n\t\tname\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_3f7ef1f7afd84374882574983ac1f12d
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662278446206
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,15 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": "{{ meta }}",
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": "{{ onFailedCallBackPayload }}",
+  "retry": 5,
+  "retryOn": [
+    "failed",
+    "busy",
+    "unreachable"
+  ],
+  "retryDelay": 5000,
+  "terminate": true
+}

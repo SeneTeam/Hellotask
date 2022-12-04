@@ -1,0 +1,32 @@
+_id: req_c29a460e924247a9b80c0e2bbca969b3
+type: Request
+parentId: fld_0616d1a3664f429ab2311b7ee1e24b4f
+modified: 1665641827162
+created: 1663052963484
+url: "{{ _.baseURL }}/graphql"
+name: Place Order
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tplaceOrder(orderStartTime: \"2022-10-13
+    18:45:00+06\", weekend: \"Friday\")
+    {\n\t\tid\n\t\tcustomerId\n\t\tinitialWorkerSearchStartTime\n\t\tinitialWorkerSearchJobId\n\t\tinvoices
+    {\n\t\t\tid\n\t\t}\n\t\testimate
+    {\n\t\t\tworker_commission\n\t\t}\n\t\tpotentialWorkers{\n\t\t\tbangla_name\n\t\t\tenglish_name\n\t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_5a33f36426f3414fa3cf9e38adc3549f
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662877481342.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

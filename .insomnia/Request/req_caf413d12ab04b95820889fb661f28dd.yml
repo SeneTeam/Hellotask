@@ -1,0 +1,33 @@
+_id: req_caf413d12ab04b95820889fb661f28dd
+type: Request
+parentId: fld_333d027176e3444c8b87021d8851f7fa
+modified: 1665575761331
+created: 1661150316948
+url: "{{ _.baseURL }}/graphql"
+name: resolveLocation
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tresolveLocation(longitude: 45.476351597, latitude:
+    -73.489862233) {\n\t\tid\n\t\tname\n\t\tsourcingZone
+    {\n\t\t\tid\n\t\t\tname\n\t\t\tworkers
+    {\n\t\t\t\tid\n\t\t\t\tbangla_name\n\t\t\t}\n\t\t\tzone
+    {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n}\n\t\n\t\t\t\t\t\t"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+  disabled: false
+metaSortKey: -1662360062282
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

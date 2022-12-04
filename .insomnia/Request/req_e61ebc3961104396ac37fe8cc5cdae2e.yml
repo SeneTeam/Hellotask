@@ -1,0 +1,30 @@
+_id: req_e61ebc3961104396ac37fe8cc5cdae2e
+type: Request
+parentId: fld_285db0b9014947129d69dc447944c5c9
+modified: 1665571052080
+created: 1662543119268
+url: "{{ _.baseURL }}/graphql"
+name: getWorkerById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetWorkerById(id: 4783)
+    {\n\t\tid\n\t\tbangla_name\n\t\tenglish_name\n\t\tphone_number\n\t\tsourcingZone
+    {\n\t\t\tid\n\t\t}\n\t\t\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d137214bc266466fbf8bbac0fa967cfa
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662470439087.1875
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

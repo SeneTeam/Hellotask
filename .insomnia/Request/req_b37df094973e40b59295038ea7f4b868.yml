@@ -1,0 +1,29 @@
+_id: req_b37df094973e40b59295038ea7f4b868
+type: Request
+parentId: fld_d3dd6e07b97f44078b82139343245001
+modified: 1665607179545
+created: 1662446195493
+url: "{{ _.baseURL }}/graphql"
+name: getUserById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetUserById(id:
+    \"6e26eff8-ae76-4595-9fc4-58b73ad4e448\") {\n\t\tid\n\t\tname\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_c1595a6e6a654bfebb703db73280a91a
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662445450832.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

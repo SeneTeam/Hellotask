@@ -1,0 +1,28 @@
+_id: req_15d9943979d246e9865231ecd2a7957f
+type: Request
+parentId: fld_145cc1c6a61c43d4bf8fb7ddbf0e93cb
+modified: 1662457176992
+created: 1662369381328
+url: "{{ _.baseURL }}/graphql"
+name: getMicroArea
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query{\n\tgetMicroareas{\n\t\tid\n\t\tname\n\t\tpolygon\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_3f7ef1f7afd84374882574983ac1f12d
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662313427979
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,86 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "হ্যালোটাস্কে ফোন করার জন্য ধন্যবাদ, ",
+        "{{worker_name_bangla}} আপা। ",
+        "অফিসে কথা বলতে চাইলে ০ চাপুন। পাওনা টাকার হিসাব জানতে ১ চাপুন। আপনার আইডি বন্ধ রাখতে চাইলে ২ চাপুন।"
+      ],
+      "options": {
+        "0": {
+          "callback": "{{ callToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callAgent": true
+        },
+        "1": {
+          "goto": "DUE_BALANCE"
+        },
+        "2": {
+          "goto": "DEACTIVATE_ID"
+        }
+      }
+    },
+    "DUE_BALANCE": {
+      "text": [
+        "আপনি হ্যালোটাস্ক এর কাছে",
+        "{{worker_due}} টাকা",
+        "পাবেন। যেটি খুব দ্রুত আপনার",
+        "{{worker_payment_account}}",
+        "একাউন্টে পাঠিয়ে দেয়া হবে।"
+      ],
+      "terminate": true
+    },
+    "DEACTIVATE_ID": {
+      "text": [
+        "আপনি ২ চেপে আইডি টি কিছুদিনের জন্য বন্ধ রাখতে চেয়েছেন। আইডি টি বন্ধ করতে চাইলে আরেকবার ২ চেপে নিশ্চিত করুন। "
+      ],
+      "options": {
+        "2": {
+          "callback": "{{ deactivateIdCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "DEACTIVATED"
+        }
+      }
+    },
+    "DEACTIVATED": {
+      "text": [
+        "আপনি ৪ চেপে আইডি টি বন্ধ করে দিয়েছেন। এখন আপনি আর কোনো কাজের কল পাবেন না। আপনি আবার এই নাম্বারে কল করে আইডি টি চালু করতে পারবেন।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}

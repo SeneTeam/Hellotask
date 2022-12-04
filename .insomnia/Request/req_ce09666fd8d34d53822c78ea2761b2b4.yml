@@ -1,0 +1,40 @@
+_id: req_ce09666fd8d34d53822c78ea2761b2b4
+type: Request
+parentId: fld_285db0b9014947129d69dc447944c5c9
+modified: 1665607815152
+created: 1662535998441
+url: "{{ _.baseURL }}/graphql"
+name: createWorker
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateWorker(\n\t\tcreateWorkerInput:
+    {\n\t\t\tphone_number: \"+8801581630601\"\n\t\t\tpresent_address: \"Present
+    Address\"\n\t\t\temergency_contact: { name: \"Adi\", phone:
+    \"+8801862297140\" }\n\t\t\tsourcing_zone_id: 99\n\t\t\tmicroarea_ids:
+    [1132]\n\t\t\tphoto_url: \"google.com\"\n\t\t}\n\t\tidentityDocInput:
+    {\n\t\t\tid_number: \"4195447331\"\n\t\t\tid_type: NID\n\t\t\tid_doc_url:
+    \"google.com\"\n\t\t\tdate_of_birth:
+    \"1993-04-14\"\n\t\t}\n\t\tpaymentInfoInputs: {\n\t\t\taccount_number:
+    \"+8801673917926\"\n\t\t\tpayment_method: BKASH\n\t\t\tis_default:
+    true\n\t\t}\n\t)
+    {\n\t\tid\n\t\tphoto_url\n\t\tphone_number\n\t\tidentity_docs
+    {\n\t\t\tid_number\n\t\t}\n\t\tworkerPaymentMethods
+    {\n\t\t\tid\n\t\t\tpayment_method\n\t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d137214bc266466fbf8bbac0fa967cfa
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662535998441
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

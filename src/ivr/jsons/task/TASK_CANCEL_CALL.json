@@ -1,0 +1,43 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম ",
+          "{{worker_name_bangla}} আপা। ",
+          "আপনাকে আজকে ",
+          "{{ working_time }} টা এর ",
+          "{{microarea_name}} এর ",
+          "কাজে যেতে হবে না। গ্রাহক যেতে নিষেধ করেছেন।",
+          "মাস শেষে একদিন বেশি কাজ করে এই দিন টি পুষিয়ে দিতে হবে।",
+          "আপনি আবার আগামীকাল থেকে যথাযময়ে কাজে চলে যাবেন। ধন্যবাদ।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+}
+  

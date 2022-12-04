@@ -1,0 +1,28 @@
+_id: req_a9a78baf43fd41fb86fbcfd96988e56b
+type: Request
+parentId: fld_d087b72dfee5467e8587a32027e980a6
+modified: 1662371679423
+created: 1662356843065
+url: "{{ _.baseURL }}/graphql"
+name: deleteSourcingZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeleteSourcingZone (id: 4) {\n\t\tid\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_783391b43d124d2eb4d416a45f720f3d
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662029531950.9375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

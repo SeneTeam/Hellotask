@@ -1,0 +1,84 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": [
+    "failed",
+    "busy",
+    "unreachable"
+  ],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "আসসালামু আলাইকুম",
+        "{{worker_name_bangla}} আপা",
+        "আপনি তো {{microarea_name}} এর গ্রাহকের বাসায় কাজটি শেষ করেছেন।",
+        "এই বাসায় আপনি {{task_count}} দিন কাজ করলে {{order_worker_comission}} টাকা পাবেন।",
+        "{{order_holiday_prompt}}",
+        "আজকে ঐ গ্রাহকের বাসায় কাজ করে আপনার যদি ভাল লাগে এবং প্রতিদিন প্যাকেজে কাজ করতে চান, তাহলে ১ চাপুন। ",
+        "আর যদি ঐ গ্রাহকের বাসায় প্যাকেজটি নিতে না চান, তাহলে ২ চেপে ক্যান্সেল করে দিন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ orderAcceptCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "WORKER_ACCEPT"
+        },
+        "2": {
+          "callback": "{{ orderRejectCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "WORKER_REJECT"
+        }
+      }
+    },
+    "WORKER_ACCEPT": {
+      "text": [
+        "ধন্যবাদ আপা। কাজটি করতে সম্মতি দেওয়ার জন্য। আমরা এখন গ্রাহকের কাছ থেকে শুনবো যে তার আপনার কাজ ভাল লেগেছে কিনা। যদি গ্রাহকেরও আপনার কাজ ভালো লেগে থাকে, তাহলে আপনাকে আমরা আবার কল দিয়ে কাজটি কনফার্ম করে দেবো।"
+      ],
+      "terminate": true
+    },
+    "WORKER_REJECT": {
+      "text": [
+        "ঠিক আছে আপা,",
+        "{{order_worker_comission}} টাকার",
+        "এই কাজটা তাহলে ক্যান্সেল করে দিচ্ছি। এরপরে কাজ এলে আবারও আপনাকে ফোন দিবো। তখন আর ক্যান্সেল করবেন না কিন্তু। ভালো থাকবেন।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": [
+        "আপনি ভুল বাটন চেপেছেন।"
+      ],
+      "goto": "__BACK__"
+    }
+  }
+}

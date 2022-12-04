@@ -1,0 +1,30 @@
+_id: req_236af8ba00884aba8ef8275b5c767c36
+type: Request
+parentId: fld_d3dd6e07b97f44078b82139343245001
+modified: 1665604970590
+created: 1662446150108
+url: "{{ _.baseURL }}/graphql"
+name: getUsers
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"# query{\n# \tgetUsers{\n# \t\tid\n# \t\troles\n# \t}\n#
+    }\n\n\nquery{\n\tgetUsers(paginate: {skip: 0, take:
+    10}){\n\t\tid\n\t\tname\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_c1595a6e6a654bfebb703db73280a91a
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662445500897.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

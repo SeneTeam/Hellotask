@@ -1,0 +1,139 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "প্রিয় {{ worker_name_bangla}} আপা",
+        "আপনার জন্য একটি সুখবর আছে। কিছুক্ষণ আগে আপনি {{ microarea_name }} এর {{ task_start_time }} এর  যে  কাজটি গ্রহণ করেছেন, সেটি গ্রাহক কনফার্ম করেছে।",
+        "আপনি এখনই আপনার মোবাইলে বাংলায় লিখিত বিস্তারিত ঠিকানা পাবেন।",
+        "তবে, গ্রাহকের ঠিকানা এখনই একবার শুনে নিতে ১ চাপুন।",
+        "গ্রাহকের সাথে কথা বলতে ২ চাপুন। কাজটি যদি ক্যান্সেল করে দিতে চান, তাহলে ৩ চাপুন। আর কোন সমস্যা থাকলে ০ চেপে অফিসে কথা বলুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "2": {
+          "callback": "{{ callToCustomerCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },    
+          "goto": "CALL_CUSTOMER"
+        },
+        "3": {
+          "goto": "WORKER_REJECT"
+        },
+        "0": {
+          "callback": "{{ callToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callAgent": true
+        }
+      }
+    },
+    "ADDRESS": {
+      "text": [
+        "ধন্যবাদ আপা। গ্রাহকের বাসার বিস্তারিত ঠিকানা বাংলায় মেসেজ করে পাঠিয়ে দেয়া হবে।",
+        "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+        "{{task_start_time}} এর",
+        "{{microarea_name}}",
+        "এর কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+        "{{order_address}}",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "CALL_CUSTOMER": {
+      "text": [
+        "এখনি গ্রাহকের সাথে আপনাকে যুক্ত করছি। গ্রাহকের সাথে কথা বলার সময় ঠিকানাটি ভালোভাবে বুঝে নিবেন এবং মহিলা সদস্য আছে কিনা শুনে নিবেন।"
+      ],
+      "callCustomer": true
+    },
+    "WORKER_ACCEPT": {
+      "text": [
+        "অনেক ধন্যবাদ, আপা। কাজটা করতে, সম্মতি দেয়ার জন্য।",
+        "কিছুক্ষণের মধ্যে আপনাকে ঠিকানাটি বাংলায় আপনার মোবাইলে ম্যাসেজ করে পাঠিয়ে দেয়া হবে।",
+        "ভালো থাকবেন।"
+      ],
+      "terminate": true
+    },
+    "WORKER_REJECT": {
+      "text": [
+        "প্রিয় {{ worker_name_bangla }} আপা, কাজটি ক্যান্সেল করে দিলে কিন্তু আপনার হ্যালোটাস্ক থেকে কাজ পাওয়ার সম্ভাবনা কমে যাবে। তবুও যদি কাজটি ক্যান্সেল করতে চান তাহলে ১ চাপুন আর করতে চাইলে ২ চাপুন। আগের অপশান গুলোতে ফেরত যেতে ৩ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ orderCancelCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }
+        },
+        "2": {
+          "callback": "{{ orderAcceptCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "goto": "WORKER_ACCEPT"
+        },
+        "3": {
+          "goto": "ROOT"
+        }
+      }
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}

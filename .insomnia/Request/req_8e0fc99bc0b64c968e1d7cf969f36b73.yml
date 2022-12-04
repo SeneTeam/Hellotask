@@ -1,0 +1,32 @@
+_id: req_8e0fc99bc0b64c968e1d7cf969f36b73
+type: Request
+parentId: fld_285db0b9014947129d69dc447944c5c9
+modified: 1665567598594
+created: 1662543257576
+url: "{{ _.baseURL }}/graphql"
+name: updateWorkerById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdateWorker(\n\t\tid: 1\n#
+    \t\tupdateWorkerInput: {\n# \t\t\t#phone_number: \"+88014548724\"\n#
+    \t\t\tpresent_address: \"Gulshan\"\n# \t\t\t# microarea_ids: [21, 34, 55]\n#
+    \t\t}\n\t) {\n\t\tbangla_name\n\t\tenglish_name\n\t\tmicroareas
+    {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d137214bc266466fbf8bbac0fa967cfa
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662459512528.2188
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,31 @@
+_id: req_31cdffe1780548d5b25c5337871589e5
+type: Request
+parentId: fld_d087b72dfee5467e8587a32027e980a6
+modified: 1662370819874
+created: 1662356030512
+url: "{{ _.baseURL }}/graphql"
+name: updateSourcingZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdateSourcingZone(\n\t\tid:
+    1,\n\t\tupdateSourcingZoneInput: {\n\t\t\tname: \"Updated Sourcing Zone
+    1\",\n\t\t\tisDisabled: false\n\t\t}\n\t)
+    {\n\t\tid\n\t\tname\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_783391b43d124d2eb4d416a45f720f3d
+authentication:
+  type: bearer
+  token: "{{ _.userToken }}"
+metaSortKey: -1662045348861.875
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

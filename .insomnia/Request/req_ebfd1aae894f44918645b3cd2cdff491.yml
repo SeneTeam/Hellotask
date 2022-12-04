@@ -1,0 +1,33 @@
+_id: req_ebfd1aae894f44918645b3cd2cdff491
+type: Request
+parentId: fld_dda4e9b08d494263a379359fee5858d9
+modified: 1664874125544
+created: 1663086757846
+url: "{{ _.baseURL }}/ivr/callflow"
+name: Create Call Flow
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "TEST_CALL9",
+    	"callType": "order",
+    	"callFlowJson": "{\r\n\t\t\"key\": \"value\"\r\n}"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_196b297a85044131ad5b1d45689d80e2
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1663086757846
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

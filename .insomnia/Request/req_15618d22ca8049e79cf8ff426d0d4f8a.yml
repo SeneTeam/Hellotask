@@ -1,0 +1,34 @@
+_id: req_15618d22ca8049e79cf8ff426d0d4f8a
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1665469871170
+created: 1661670596770
+url: "{{ _.baseURL }}/graphql"
+name: getCustomers
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetCustomers(paginate: { skip: 0, take: 10 })
+    {\n\t\tid\n\t\tname\n\t\tphoto_url\n\t\tlastLocation\n\t\t# lastLoginDate\n#
+    \t\tcustomer_addresses {\n# \t\t\taddress_label\n# \t\t\tlocation\n#
+    \t\t\tmicroarea {\n# \t\t\t\tid\n# \t\t\t\tname\n# \t\t\t\tsourcingZone {\n#
+    \t\t\t\t\tid\n# \t\t\t\t\tname\n# \t\t\t\t\tzone {\n# \t\t\t\t\t\tid\n#
+    \t\t\t\t\t\tname\n# \t\t\t\t\t}\n# \t\t\t\t}\n# \t\t\t}\n# \t\t\tworks\n#
+    \t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1661149428660
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

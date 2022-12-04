@@ -1,0 +1,29 @@
+_id: req_f78ddbdd94334a6894e0b02777d7022d
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1665382057570
+created: 1661150571783
+url: "{{ _.baseURL }}/graphql"
+name: createCustomer
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateCustomer(latitude: 23.748537, longitude:
+    90.375900, phone_number:\"+8801717018300\") {\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1661149428810
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

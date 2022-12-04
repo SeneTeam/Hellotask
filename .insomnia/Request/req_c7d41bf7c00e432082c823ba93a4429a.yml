@@ -1,0 +1,28 @@
+_id: req_c7d41bf7c00e432082c823ba93a4429a
+type: Request
+parentId: fld_dda4e9b08d494263a379359fee5858d9
+modified: 1663504183065
+created: 1663266516275
+url: "{{ _.baseURL }}/ivr/callflow/name/Test 02"
+name: Get Call Flow By Name
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_95eaad58dacc4e98bb2cd4ff560e1e7e
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1663086757858.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

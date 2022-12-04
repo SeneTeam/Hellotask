@@ -1,0 +1,223 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ &onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "আসসালামু আলাইকুম ",
+        "{{worker_name_bangla}} আপা",
+        "আপনি",
+        "{{microarea_name}} এর",
+        "কাজটির জন্য বের হয়েছেন কিনা, তা জানতে কল করলাম। বের হয়ে গিয়ে থাকলে ১ চাপুন। এখনও বের হয়ে না থাকলে ২ চাপুন। আর যদি পৌঁছে গিয়ে থাকলে, কাজ শুরু করতে ৪ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &onTheWayCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ON_THE_WAY"
+        },
+        "2": {
+          "callback": "{{ &notOnTheWayCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "NOT_ON_THE_WAY"
+        },
+        "4": {
+          "callback": "{{ &startWorkingCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "TASK_START"
+        }
+      }
+    },
+    "ON_THE_WAY": {
+      "text": [
+        "আচ্ছা ঠিকাছে আপা, ঠিক মতো কাজে গিয়ে এই নাম্বারে আবার কল করে ৪ চেপে কাজ টি শুরু করে দিএন।",
+        "কাজের ঠিকানা টি আবার শুনতে চাইলে ১ চাপুন।",
+        "গ্রাহকের সাথে কথা বলতে ৩ চাপুন।",
+        "এসবের কিছুই না লাগলে ৯ চেপে কল কেটে দিন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "3": {
+          "callback": "{{ &callToCustomerCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "callCustomer": true
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "NOT_ON_THE_WAY": {
+      "text": [
+        "এখনও বের না হয়ে থাকলে গ্রাহকের বাসায় সময় মতো পৌঁছাতে পারবেন তো আপা? ঠিক সময় মতো পৌছাতে পারলে ১ চাপুন। যেতে যদি দেরি হয়, সেটা জানাতে ২ চাপুন। যদি কোন সমস্যা থাকে, তাহলে অফিসে কথা বলতে ০ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &notOnTheWayCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ON_THE_WAY"
+        },
+        "2": {
+          "goto": "GET_ETA"
+        },
+        "0": {
+          "callback": "{{ &callToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "callAgent": true
+        }
+      }
+    },
+    "ADDRESS": {
+      "text": [
+        "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+        "{{task_start_time}} এর",
+        "{{microarea_name}} এর",
+        "কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+        "{{order_address}}",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "GET_ETA": {
+      "text": [
+        "তো আপা,",
+        "{{microarea_name}} এরিয়াতে",
+        "কতক্ষণের মধ্যে যেতে পারবেন? আধা ঘণ্টার মধ্যে, যেতে পারলে ১ চাপুন। এক ঘণ্টার মধ্যে যেতে পারলে ২ চাপুন। আর দেড় ঘণ্টার মত সময় লাগলে, ৩ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &orderAcceptCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}",
+            "eta": "30"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ON_THE_WAY"
+        },
+        "2": {
+          "callback": "{{ &orderAcceptCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}",
+            "eta": "60"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ON_THE_WAY"
+        },
+        "3": {
+          "callback": "{{ &orderAcceptCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ recipient }}",
+            "eta": "90"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ON_THE_WAY"
+        }
+      }
+    },
+    "TASK_START": {
+      "text": [
+        "আপনার কাজটা শুরু হয়েছে। কাজ যখন শেষ হয়ে যাবে, তখন, এই নাম্বারে ফোন করে আপনি কাজটি বন্ধ করে দিবেন। কাজ বন্ধ না করলে কিন্তু, টাকা পাবেন না। তাই মোনে করে অবশ্যই কাজটি শেষ করবেন।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}

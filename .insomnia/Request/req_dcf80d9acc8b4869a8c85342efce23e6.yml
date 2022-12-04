@@ -1,0 +1,28 @@
+_id: req_dcf80d9acc8b4869a8c85342efce23e6
+type: Request
+parentId: fld_145cc1c6a61c43d4bf8fb7ddbf0e93cb
+modified: 1662371700446
+created: 1662371638853
+url: "{{ _.baseURL }}/graphql"
+name: deleteMicroArea
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeleteMicroarea (id: 4) {\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_3f7ef1f7afd84374882574983ac1f12d
+authentication:
+  type: bearer
+  token: "{{ _.userToken }}"
+metaSortKey: -1662272615910.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

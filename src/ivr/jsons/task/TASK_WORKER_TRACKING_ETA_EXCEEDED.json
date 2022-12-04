@@ -1,0 +1,124 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "আসসালামু আলাইকুম",
+        "{{worker_name_bangla}} আপা।",
+        "আপনি তো এখনো ",
+        "{{microarea_name}} এর ",
+        "কাজটা শুরু করেননি। আপনি এখন কোথায় আছেন? গ্রাহকের বাসার কাছাকাছি থাকলে ১ চাপুন। পৌঁছাতে আরও কিছুক্ষণ সময় লাগলে ২ চাপুন। গ্রাহকের বাসায় ইতোমধ্যে পৌঁছয়ে গিয়ে থাকলে কাজটা শুরু করার জন্য ৪ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ almostThereCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ALMOST_THERE"
+        },
+        "2": {
+          "callback": "{{ almostThereCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ALMOST_THERE"
+        },
+        "4": {
+          "callback": "{{ startWorkingCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "goto": "TASK_STARTED"
+        }
+      }
+    },
+    "ALMOST_THERE": {
+      "text": [
+        "আচ্ছা ঠিকাছে আপা, ঠিক মতো কাজে গিয়ে এই নাম্বারে আবার কল করে ৪ চেপে কাজ টি শুরু করে দিএন।",
+        "কাজের ঠিকানা টি আবার শুনতে চাইলে ১ চাপুন।",
+        "গ্রাহকের সাথে কথা বলতে ৩ চাপুন।",
+        "এসবের কিছুই না লাগলে ৯ চেপে কল কেটে দিন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "3": {
+          "callback": "{{ callToCustomerCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callCustomer": true
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "ADDRESS": {
+      "text": [
+        "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+        "{{task_start_time}} এর",
+        "{{microarea_name}} এর",
+        "কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+        "{{order_address}}",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "TASK_STARTED": {
+      "text": [
+        "আপনার কাজটা শুরু হয়েছে। কাজ যখন শেষ হয়ে যাবে, তখন, এই নাম্বারে ফোন করে আপনি কাজটি বন্ধ করে দিবেন। কাজ বন্ধ না করলে কিন্তু, টাকা পাবেন না। তাই মোনে করে অবশ্যই কাজটি শেষ করবেন।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}

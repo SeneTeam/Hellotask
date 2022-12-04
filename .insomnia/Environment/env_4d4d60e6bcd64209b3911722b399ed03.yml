@@ -1,0 +1,14 @@
+_id: env_4d4d60e6bcd64209b3911722b399ed03
+type: Environment
+parentId: env_632050b1bbfdd87a6836dceb7d9defc99919a2bb
+modified: 1665610980516
+created: 1662370749309
+name: Staging Server
+data:
+  baseURL: https://stage.api.hellotask.tech
+dataPropertyOrder:
+  "&":
+    - baseURL
+color: "#ea9c53"
+isPrivate: false
+metaSortKey: 1662370749309

@@ -1,0 +1,205 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Zone {
+  """ID of location type"""
+  id: Int!
+
+  """Name of the location type"""
+  name: String!
+
+  """Polygons of area as a 2D aray. e.g., [[long, lat], [long, lat]]"""
+  polygon: [[Float!]!]!
+
+  """Is the area disabled"""
+  isDisabled: Boolean!
+
+  """Is the area deleted"""
+  isDeleted: Boolean!
+
+  """Area created at"""
+  createdAt: DateTime!
+
+  """Area updated at"""
+  updatedAt: DateTime!
+
+  """Sourcing zones"""
+  sourcingZones: [SourcingZone!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type SourcingZone {
+  """ID of location type"""
+  id: Int!
+
+  """Name of the location type"""
+  name: String!
+
+  """Polygons of area as a 2D aray. e.g., [[long, lat], [long, lat]]"""
+  polygon: [[Float!]!]!
+
+  """Is the area disabled"""
+  isDisabled: Boolean!
+
+  """Is the area deleted"""
+  isDeleted: Boolean!
+
+  """Area created at"""
+  createdAt: DateTime!
+
+  """Area updated at"""
+  updatedAt: DateTime!
+
+  """Zone"""
+  zone: Zone!
+
+  """Microareas"""
+  microareas: [Microarea!]
+}
+
+type Microarea {
+  """ID of location type"""
+  id: Int!
+
+  """Name of the location type"""
+  name: String!
+
+  """Polygons of area as a 2D aray. e.g., [[long, lat], [long, lat]]"""
+  polygon: [[Float!]!]!
+
+  """Is the area disabled"""
+  isDisabled: Boolean!
+
+  """Is the area deleted"""
+  isDeleted: Boolean!
+
+  """Area created at"""
+  createdAt: DateTime!
+
+  """Area updated at"""
+  updatedAt: DateTime!
+
+  """Sourcing Zones"""
+  sourcingZone: SourcingZone!
+}
+
+type Maid {
+  """ID of maid"""
+  id: Int!
+
+  """Name of the maid"""
+  name: String!
+
+  """Is the area disabled"""
+  isDisabled: Boolean!
+
+  """Is the area deleted"""
+  isDeleted: Boolean!
+
+  """Area created at"""
+  createdAt: DateTime!
+
+  """Area updated at"""
+  updatedAt: DateTime!
+}
+
+type Query {
+  getAllMaids: [Maid!]!
+  getMaidById(id: Int!): Maid!
+  getZones: [Zone!]!
+  getZonebyId(id: Int!): Zone!
+  getSourcingZones: [SourcingZone!]!
+  getSourcingZonebyId(id: Int!): SourcingZone!
+  getMicroareas: [Microarea!]!
+  getMicroareaById(id: Int!): Microarea!
+  getTasksByOrderId(orderId: String!): [Task!]!
+}
+
+type Mutation {
+  createMaid(createMaidInput: CreateMaidInput!): Maid!
+  updateMaid(updateMaidInput: UpdateMaidInput!): Maid!
+  deleteMaid(id: Int!): Maid!
+  createZone(createZoneInput: CreateZoneInput!): Zone!
+  updateZone(updateZoneInput: UpdateZoneInput!): Zone!
+  deleteZone(id: Int!): Zone!
+  createSourcingZone(createSourcingZoneInput: CreateSourcingZoneInput!): SourcingZone!
+  updateSourcingZone(updateSourcingZoneInput: UpdateSourcingZoneInput!): SourcingZone!
+  deleteSourcingZone(id: Int!): SourcingZone!
+  createMicroarea(createMicroareaInput: CreateMicroareaInput!): Microarea!
+  updateMicroarea(updateMicroareaInput: UpdateMicroareaInput!): Microarea!
+}
+
+input CreateMaidInput {
+  """Maid name"""
+  name: String!
+}
+
+input UpdateMaidInput {
+  """Maid name"""
+  name: String
+  id: Int!
+}
+
+input CreateZoneInput {
+  """Zone name"""
+  name: String!
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]!
+}
+
+input UpdateZoneInput {
+  """Zone name"""
+  name: String
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]
+  id: Int!
+  isDisabled: Boolean
+}
+
+input CreateSourcingZoneInput {
+  """Zone name"""
+  name: String!
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]!
+  zoneId: Int!
+}
+
+input UpdateSourcingZoneInput {
+  """Zone name"""
+  name: String
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]
+  zoneId: Int
+  id: Int!
+  isDisabled: Boolean
+}
+
+input CreateMicroareaInput {
+  """Zone name"""
+  name: String!
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]!
+  sourcingZoneId: Int!
+}
+
+input UpdateMicroareaInput {
+  """Zone name"""
+  name: String
+
+  """Polygon of the zone"""
+  polygon: [[Float!]!]
+  sourcingZoneId: Int
+  id: Int!
+  isDisabled: Boolean
+  SourcingZoneId: Int
+}

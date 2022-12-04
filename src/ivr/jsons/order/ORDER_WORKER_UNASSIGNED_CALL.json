@@ -1,0 +1,43 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": [
+    "failed",
+    "busy",
+    "unreachable"
+  ],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "আসসালামু আলাইকুম",
+        "{{worker_name_bangla}} আপা। ",
+        "আপনাকে {{task_start_time}} এর {{microarea_name}} এর কাজ থেকে বাদ দেওয়া হয়েছে। ",
+        "আপনাকে আর ওই বাসায় কাজে যেতে হবে না। ",
+        "আপনি {{microarea_name}} এর গ্রাহকের বাসায় {{worker_worked_days}} দিন কাজ করেছেন।",
+        "আপনি যথাযময়ে আপনার কাজের ",
+        "{{worker_due}} টাকা ",
+        "{{default_payment_method}}",
+        "অ্যাকাউন্টে পেয়ে যাবেন। ধন্যবাদ।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": [
+        "আপনি ভুল বাটন চেপেছেন।"
+      ],
+      "goto": "__BACK__"
+    }
+  }
+}

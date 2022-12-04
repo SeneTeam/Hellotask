@@ -1,0 +1,43 @@
+_id: req_564c3d06f29840e996bc9cf6707303e7
+type: Request
+parentId: fld_d087b72dfee5467e8587a32027e980a6
+modified: 1665554797513
+created: 1662266785615
+url: "{{ _.baseURL }}/graphql"
+name: createSourcingZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateSourcingZone(\n\t\tcreateSourcingZoneInput:
+    {\n\t\t\tname: \"Test Sourcing zone-1.3\"\n\t\t\tzoneId: 8\n\t\t\tpolygon:
+    [\n\t\t\t\t[-73.4653616, 45.484447]\n\t\t\t\t[-73.4613705,
+    45.4834842]\n\t\t\t\t[-73.4578943, 45.4830329]\n\t\t\t\t[-73.4556198,
+    45.4821603]\n\t\t\t\t[-73.4527874, 45.4807762]\n\t\t\t\t[-73.44841,
+    45.4778273]\n\t\t\t\t[-73.4436893, 45.4747278]\n\t\t\t\t[-73.4414577,
+    45.4731027]\n\t\t\t\t[-73.4451485, 45.4703942]\n\t\t\t\t[-73.4485388,
+    45.4684981]\n\t\t\t\t[-73.4511995, 45.4676855]\n\t\t\t\t[-73.4537315,
+    45.4666321]\n\t\t\t\t[-73.4562635, 45.4648864]\n\t\t\t\t[-73.4574652,
+    45.4645553]\n\t\t\t\t[-73.4598255, 45.4650068]\n\t\t\t\t[-73.4630442,
+    45.4654282]\n\t\t\t\t[-73.4659624, 45.4660301]\n\t\t\t\t[-73.4672928,
+    45.4682573]\n\t\t\t\t[-73.4675503, 45.4707553]\n\t\t\t\t[-73.4667778,
+    45.4735842]\n\t\t\t\t[-73.4655333, 45.4772555]\n\t\t\t\t[-73.4645033,
+    45.4804151]\n\t\t\t\t[-73.4642887, 45.482401]\n\t\t\t\t[-73.4655333,
+    45.4844771]\n\t\t\t]\n\t\t}\n\t)
+    {\n\t\tid\n\t\tname\n\t\tpolygon\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_783391b43d124d2eb4d416a45f720f3d
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662266785615
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,28 @@
+_id: req_eb933c58f5194a29a8724ae530de1adf
+type: Request
+parentId: fld_d761a2e82c6641c4912dfa9d1f622734
+modified: 1662530553982
+created: 1662016040707
+url: "{{ _.baseURL }}/graphql"
+name: deleteZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeleteZone(id:3){\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_f1786a87858844ac8fefd23106fb8b19
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1661204279328.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

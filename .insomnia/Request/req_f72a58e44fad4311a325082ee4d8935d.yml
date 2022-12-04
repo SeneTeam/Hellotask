@@ -1,0 +1,23 @@
+_id: req_f72a58e44fad4311a325082ee4d8935d
+type: Request
+parentId: fld_dda4e9b08d494263a379359fee5858d9
+modified: 1664874574098
+created: 1663266120848
+url: "{{ _.baseURL }}/ivr/callflow/f6dbf83f-9d47-4c1c-970b-00d05a4e98ab"
+name: Delete Call Flow
+description: ""
+method: DELETE
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1663086757746
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

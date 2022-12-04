@@ -1,0 +1,43 @@
+_id: req_d7138fc10dd64141a8ab78a5e49a0cf5
+type: Request
+parentId: fld_145cc1c6a61c43d4bf8fb7ddbf0e93cb
+modified: 1665556311214
+created: 1662360070343
+url: "{{ _.baseURL }}/graphql"
+name: createMicroArea
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateMicroarea(\n\t\tcreateMicroareaInput:
+    {\n\t\t\tname: \"Test Microarea-1.1.4\"\n\t\t\tsourcingZoneId:
+    99\n\t\t\tpolygon: [\n\t\t\t\t[-73.5060453,
+    45.4993086]\n\t\t\t\t[-73.5012388, 45.5009931]\n\t\t\t\t[-73.493557,
+    45.5032489]\n\t\t\t\t[-73.4907675, 45.5021962]\n\t\t\t\t[-73.4878922,
+    45.5010833]\n\t\t\t\t[-73.4863901, 45.4981054]\n\t\t\t\t[-73.4837294,
+    45.4960899]\n\t\t\t\t[-73.4802532, 45.4937435]\n\t\t\t\t[-73.4759617,
+    45.4907953]\n\t\t\t\t[-73.4730864, 45.48893]\n\t\t\t\t[-73.4684086,
+    45.4860718]\n\t\t\t\t[-73.4665632, 45.4843568]\n\t\t\t\t[-73.4654903,
+    45.4829426]\n\t\t\t\t[-73.4653616, 45.480385]\n\t\t\t\t[-73.4669495,
+    45.4753296]\n\t\t\t\t[-73.4679794, 45.4726513]\n\t\t\t\t[-73.4729576,
+    45.4759616]\n\t\t\t\t[-73.4827852, 45.4830329]\n\t\t\t\t[-73.4886646,
+    45.4870346]\n\t\t\t\t[-73.4932566, 45.4906148]\n\t\t\t\t[-73.4984922,
+    45.4941647]\n\t\t\t\t[-73.5045433, 45.4986468]\n\t\t\t\t[-73.5061741,
+    45.4993688]\n\t\t\t]\n\t\t}\n\t)
+    {\n\t\tid\n\t\tname\n\t\tpolygon\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_3f7ef1f7afd84374882574983ac1f12d
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662360070343
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

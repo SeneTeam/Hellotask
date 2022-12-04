@@ -1,0 +1,29 @@
+_id: req_46dd3a6f431d495892d24ebd47c4bbb6
+type: Request
+parentId: fld_285db0b9014947129d69dc447944c5c9
+modified: 1665381968787
+created: 1662542983807
+url: "{{ _.baseURL }}/graphql"
+name: getWorkers
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetAllWorkers(paginate: { skip: 0, take: 10 })
+    {\n\t\tid\n\t\tphone_number\n\t\tpresent_address\n\t\tbangla_name\n\t\tenglish_name\n\t\tmicroareas{\n\t\t\tid\n\t\t\tname\n\t\t}\n\t\tworker_status{\n\t\t\tid\n\t\t\tstatus\n\t\t\tcreated_at\n\t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d137214bc266466fbf8bbac0fa967cfa
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662492292205.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

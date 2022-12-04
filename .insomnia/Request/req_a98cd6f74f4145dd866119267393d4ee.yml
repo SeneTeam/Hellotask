@@ -1,0 +1,29 @@
+_id: req_a98cd6f74f4145dd866119267393d4ee
+type: Request
+parentId: fld_53a4e8b03c5341efba581ceff26b775f
+modified: 1665641839803
+created: 1664450398118
+url: ""
+name: receivedPaymentSubscription
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"subscription {\n  paymentReceived (invoiceId:
+    \"074d8c2c-2034-4a10-8ab1-03e62690d02c\"){\n    id\n    invoice
+    {\n      id\n    }\n    payment_received_at\n  }\n}\n# Write your query or
+    mutation here\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_e776179fa995414f9196a4c0bcf7816e
+authentication: {}
+metaSortKey: -1664450398118
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

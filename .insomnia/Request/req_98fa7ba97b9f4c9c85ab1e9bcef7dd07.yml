@@ -1,0 +1,28 @@
+_id: req_98fa7ba97b9f4c9c85ab1e9bcef7dd07
+type: Request
+parentId: fld_fbe03ca1e1d143d29562318681c0fd24
+modified: 1664173219665
+created: 1662451990023
+url: "{{ _.baseURL }}/graphql"
+name: getPackages
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query{\n\tgetPackages{\n\t\tid\n\t\ttitle\n\t\tis_prepaid\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d5c3e97f07c744c4aade892f630e7cc3
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662447591005.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

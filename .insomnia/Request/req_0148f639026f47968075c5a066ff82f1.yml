@@ -1,0 +1,29 @@
+_id: req_0148f639026f47968075c5a066ff82f1
+type: Request
+parentId: fld_fbe03ca1e1d143d29562318681c0fd24
+modified: 1663515438196
+created: 1662453525502
+url: "{{ _.baseURL }}/graphql"
+name: getPackageById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetPackageById(id:
+    \"d4ec20c1-a449-403e-a1c2-607703a1acfc\") {\n\t\tid\n\t\ttitle\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d5c3e97f07c744c4aade892f630e7cc3
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662446596041.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

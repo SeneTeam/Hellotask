@@ -1,0 +1,21 @@
+_id: req_7dd03a68be394ed2bc5874fefac42f66
+type: Request
+parentId: fld_0141eeae57b242b9b7e58acc8017a071
+modified: 1662441983952
+created: 1662372303721
+url: "{{ _.baseURL }}"
+name: Hello World
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1662372303721
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

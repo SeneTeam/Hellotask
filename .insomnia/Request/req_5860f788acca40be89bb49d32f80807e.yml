@@ -1,0 +1,28 @@
+_id: req_5860f788acca40be89bb49d32f80807e
+type: Request
+parentId: fld_d3dd6e07b97f44078b82139343245001
+modified: 1662536762540
+created: 1662446473647
+url: "{{ _.baseURL }}/graphql"
+name: deleteUserById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation{\n\tdeleteUserById(id:\"0d1b8532-2cb8-4c2b-b97d-14686acc9a67\"){\n\t\tid\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_c1595a6e6a654bfebb703db73280a91a
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662445413283.3125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

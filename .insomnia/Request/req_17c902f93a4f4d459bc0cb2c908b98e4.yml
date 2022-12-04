@@ -1,0 +1,29 @@
+_id: req_17c902f93a4f4d459bc0cb2c908b98e4
+type: Request
+parentId: fld_fbe03ca1e1d143d29562318681c0fd24
+modified: 1662543516875
+created: 1662454061586
+url: "{{ _.baseURL }}/graphql"
+name: deletePackageById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeletePackage(id:
+    \"d4ec20c1-a449-403e-a1c2-607703a1acfc\"){\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d5c3e97f07c744c4aade892f630e7cc3
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662445849818.9375
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

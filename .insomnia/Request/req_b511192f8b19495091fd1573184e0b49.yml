@@ -1,0 +1,29 @@
+_id: req_b511192f8b19495091fd1573184e0b49
+type: Request
+parentId: fld_333d027176e3444c8b87021d8851f7fa
+modified: 1662801985845
+created: 1662704901623
+url: "{{ _.baseURL }}/graphql"
+name: seedLocations
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tseedLocations\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+  disabled: false
+metaSortKey: -1662360062257
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

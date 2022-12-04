@@ -1,0 +1,29 @@
+_id: req_07daa8cb621d47629e71d8a15e652081
+type: Request
+parentId: fld_d087b72dfee5467e8587a32027e980a6
+modified: 1662369574729
+created: 1662355720470
+url: "{{ _.baseURL }}/graphql"
+name: getSourcingZonebyId
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query{\n\tgetSourcingZonebyId (id:
+    1){\n\t\tid\n\t\tname\n\t\tpolygon\n\t\tmicroareas{\n\t\t\tid\n\t\t}\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_783391b43d124d2eb4d416a45f720f3d
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662076982683.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

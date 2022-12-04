@@ -1,0 +1,28 @@
+_id: req_ceb18e09919542ccbb7834008d955395
+type: Request
+parentId: fld_dda4e9b08d494263a379359fee5858d9
+modified: 1664873646101
+created: 1663265972255
+url: "{{ _.baseURL }}/ivr/callflows"
+name: Get All Call Flows
+description: ""
+method: GET
+body:
+  mimeType: application/json
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_95eaad58dacc4e98bb2cd4ff560e1e7e
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1663086757896
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

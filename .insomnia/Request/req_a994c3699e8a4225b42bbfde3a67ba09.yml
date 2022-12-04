@@ -1,0 +1,48 @@
+_id: req_a994c3699e8a4225b42bbfde3a67ba09
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1665469741644
+created: 1661678535181
+url: "{{ _.baseURL }}/graphql"
+name: updateCustomer
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdateCustomer(\n\t\tid:
+    \"e5c3b83b-07af-4521-9c41-216dc11e30ed\"\n\t\t#updateCustomerInput:
+    {\n\t\t#name: \"Customer 03\"\n\t\t#email:
+    \"customer03@hellotask.tech\"\n\t\t#photo_url:
+    \"https://images.unsplash.com/photo-1453728013993-6d66e9c9123a\"\n\t\t#latitude:
+    23.001554\n\t\t#longitude: 90.00444\n\t\t#}\n#
+    \t\t\t\tupdateCustomerAddressInput: {\n# \t\t\t\t\tid:
+    \"5de590f5-1fbb-4f3c-ac31-bd33479427fc\"\n# \t\t\t\t\taddress_label:
+    \"updated address\"\n# \t\t\t\t\tlatitude: 23.824943928144926\n#
+    \t\t\t\t\tlongitude: 90.43041767519843\n# \t\t\t\t}\n#
+    \t\t\t\tcreateCustomerAddressInput: {\n# \t\t\t\t\taddress_label: \"new
+    address\"\n# \t\t\t\t\tlatitude: 23.824943928144926\n# \t\t\t\t\tlongitude:
+    90.43041767519843\n# \t\t\t\t\tappartment_size: \"1200\"\n#
+    \t\t\t\t\tappartment_type: \"large\"\n# \t\t\t\t\tno_of_rooms: 5\n#
+    \t\t\t\t\tno_of_bathrooms: 3\n# \t\t\t\t\tno_of_balcony: 4\n#
+    \t\t\t\t\tno_of_adults: 6\n# \t\t\t\t\tno_of_children: 2\n#
+    \t\t\t\t}\n\t\tdeleteCustomerAddressInput: {\n\t\t\tcustomerAddressId:
+    \"5ba68b8e-b166-4ace-90fa-51fe848a2177\"\n\t\t}\n\t) {\n\t\tid\n\t\t#
+    \t\tname\n\t\t# \t\tphoto_url\n\t\t# \t\tlastLocation\n\t\t#
+    \t\tcustomer_addresses {\n\t\t# \t\t\tid\n\t\t# \t\t\t# address_label\n\t\t#
+    \t\t\tlocation\n\t\t# \t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1661149428560
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

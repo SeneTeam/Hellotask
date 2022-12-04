@@ -1,0 +1,46 @@
+_id: req_e317bbdb1fcc44cb96f2671b58f12488
+type: Request
+parentId: fld_53a4e8b03c5341efba581ceff26b775f
+modified: 1665641871346
+created: 1664292128100
+url: "{{ _.baseURL }}/finance/payment"
+name: IPN
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"txn_id": "Unique sdsddsd",
+    	"invoice_id": "9072778f-6cae-4802-a7c7-d94eeee6fad1",
+    	"payment_method": "sslcommerz",
+    	"reference": "payment referencm",
+    	"gateway_ipn_payload": {
+    		"key": "value",
+    		"another_key": "another value"
+    	},
+    	"payment_time": "2022-12-17T03:24:00",
+    	"payment_meta": {
+    		"key": "value",
+    		"mostly": "blank"
+    	}
+    }
+parameters: []
+headers:
+  - id: pair_52c3c866732b4f01bb3fa030a86acd3f
+    name: X-API-KEY
+    value: jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5
+    description: ""
+    disabled: false
+  - name: Content-Type
+    value: application/json
+    id: pair_5fb2d02ee12e4461a327694656880f16
+authentication: {}
+metaSortKey: -1664292128100
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

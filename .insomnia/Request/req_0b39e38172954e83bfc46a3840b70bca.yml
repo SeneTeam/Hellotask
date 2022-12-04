@@ -1,0 +1,30 @@
+_id: req_0b39e38172954e83bfc46a3840b70bca
+type: Request
+parentId: fld_fbe03ca1e1d143d29562318681c0fd24
+modified: 1662543398062
+created: 1662453908034
+url: "{{ _.baseURL }}/graphql"
+name: updatePackageById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdatePackageById(\n\t\tid:
+    \"d4ec20c1-a449-403e-a1c2-607703a1acfc\"\n\t\tupdatePackageInput: { title:
+    \"Updated Package\" }\n\t) {\n\t\tid\n\t\ttitle\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d5c3e97f07c744c4aade892f630e7cc3
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662446098559.875
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

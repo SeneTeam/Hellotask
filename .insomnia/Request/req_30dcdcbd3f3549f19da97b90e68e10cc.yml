@@ -1,0 +1,29 @@
+_id: req_30dcdcbd3f3549f19da97b90e68e10cc
+type: Request
+parentId: fld_d3dd6e07b97f44078b82139343245001
+modified: 1664083859431
+created: 1662445601028
+url: "{{ _.baseURL }}/graphql"
+name: getUser
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query{\n\tgetUser{\n\t\tid\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_c1595a6e6a654bfebb703db73280a91a
+authentication:
+  type: bearer
+  token: "{{ _.userToken }}"
+  disabled: false
+metaSortKey: -1662445601028
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

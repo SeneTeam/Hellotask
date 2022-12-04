@@ -1,0 +1,33 @@
+_id: req_00184cf54b084558be7c143f308224c0
+type: Request
+parentId: fld_d3cb9054c3a94377b7627d1f0d602991
+modified: 1666446966372
+created: 1666434802155
+url: "{{ _.baseURL }}/ivr/call/request"
+name: IVR Call Request
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"phone_number": "+8801918000000"
+    }
+parameters: []
+headers:
+  - id: pair_656215d61259485b995e07bee6b58f47
+    name: X-API-KEY
+    value: jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5
+    description: ""
+  - name: Content-Type
+    value: application/json
+    id: pair_29e12e12808d4050b01226dd5d115ebe
+authentication: {}
+metaSortKey: -1666434802156
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

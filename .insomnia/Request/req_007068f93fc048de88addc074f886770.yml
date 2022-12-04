@@ -1,0 +1,51 @@
+_id: req_007068f93fc048de88addc074f886770
+type: Request
+parentId: fld_d761a2e82c6641c4912dfa9d1f622734
+modified: 1665554463086
+created: 1662013715040
+url: "{{ _.baseURL }}/graphql"
+name: createZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateZone(\n\t\tcreateZoneInput: {\n\t\t\tname:
+    \"Testing Zone-1\"\n\t\t\tpolygon: [\n\t\t\t\t[-73.5143709,
+    45.4966314]\n\t\t\t\t[-73.5060024, 45.499459]\n\t\t\t\t[-73.4985352,
+    45.5020157]\n\t\t\t\t[-73.4932566, 45.5034294]\n\t\t\t\t[-73.4887934,
+    45.5042114]\n\t\t\t\t[-73.4856176, 45.5046325]\n\t\t\t\t[-73.4762192,
+    45.5050235]\n\t\t\t\t[-73.4399986, 45.5076702]\n\t\t\t\t[-73.39674,
+    45.5105574]\n\t\t\t\t[-73.3720207, 45.5115198]\n\t\t\t\t[-73.3719349,
+    45.5049634]\n\t\t\t\t[-73.3768272, 45.4942549]\n\t\t\t\t[-73.3816338,
+    45.4845072]\n\t\t\t\t[-73.3886719, 45.4739754]\n\t\t\t\t[-73.3938217,
+    45.4685583]\n\t\t\t\t[-73.401289, 45.4629601]\n\t\t\t\t[-73.4076405,
+    45.4582041]\n\t\t\t\t[-73.416996, 45.4519426]\n\t\t\t\t[-73.4284973,
+    45.4439942]\n\t\t\t\t[-73.4568214, 45.4633815]\n\t\t\t\t[-73.4585381,
+    45.464164]\n\t\t\t\t[-73.4623146, 45.4646456]\n\t\t\t\t[-73.4735584,
+    45.4650369]\n\t\t\t\t[-73.4854889, 45.4658495]\n\t\t\t\t[-73.4943295,
+    45.4670234]\n\t\t\t\t[-73.4960461, 45.4707252]\n\t\t\t\t[-73.4980631,
+    45.4740356]\n\t\t\t\t[-73.4998226, 45.4755704]\n\t\t\t\t[-73.5019684,
+    45.477075]\n\t\t\t\t[-73.5048437, 45.4787601]\n\t\t\t\t[-73.5070324,
+    45.4804452]\n\t\t\t\t[-73.5079765, 45.4821603]\n\t\t\t\t[-73.5083628,
+    45.4839355]\n\t\t\t\t[-73.5089636, 45.4858311]\n\t\t\t\t[-73.5098648,
+    45.4877867]\n\t\t\t\t[-73.5115385, 45.4904042]\n\t\t\t\t[-73.5126972,
+    45.492119]\n\t\t\t\t[-73.5132873, 45.4930817]\n\t\t\t\t[-73.5136414,
+    45.4941496]\n\t\t\t\t[-73.5145426, 45.496496]\n\t\t\t\t[-73.5143709,
+    45.4966464]\n\t\t\t]\n\t\t}\n\t)
+    {\n\t\tid\n\t\tname\n\t\tpolygon\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_f1786a87858844ac8fefd23106fb8b19
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662013715040
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

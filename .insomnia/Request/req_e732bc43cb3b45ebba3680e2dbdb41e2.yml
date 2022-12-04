@@ -1,0 +1,31 @@
+_id: req_e732bc43cb3b45ebba3680e2dbdb41e2
+type: Request
+parentId: fld_d3dd6e07b97f44078b82139343245001
+modified: 1662702040780
+created: 1662445400767
+url: "{{ _.baseURL }}/graphql"
+name: createUser
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreateUser(\n\t\tcreateUserInput: {\n\t\t\temail:
+    \"user@hellotask.tech\"\n\t\t\tphone_number:
+    \"+8801717015565\"\n\t\t\tpassword: \"12345678\"\n\t\t\tname: \"Test
+    User\"\n\t\t}\n\t) {\n\t\tid\n\t\tphone_number\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_92f92ccbb20c4a03af296b49f76b142f
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662445601078
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

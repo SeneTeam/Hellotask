@@ -1,0 +1,33 @@
+_id: req_a0eff73fcabc419fbad4a703a2d7f4ff
+type: Request
+parentId: fld_fbe03ca1e1d143d29562318681c0fd24
+modified: 1663526404114
+created: 1662449580933
+url: "{{ _.baseURL }}/graphql"
+name: createPackage
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreatePackage(\n\t\tcreatePackageInput:
+    {\n\t\t\ttitle: \"Monthly\"\n\t\t\tdescription: \"Monthly
+    Package\"\n\t\t\ttask_count: 26\n\t\t\tis_active: true\n\t\t\tis_prepaid:
+    true\n\t\t\thas_trial: true\n\t\t\thas_holiday:
+    true\n\t\t\tis_trial_optional: false\n\t\t\tmax_trial_count: 3\n\t\t}\n\t)
+    {\n\t\tid\n\t\ttitle\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d5c3e97f07c744c4aade892f630e7cc3
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662448585969.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

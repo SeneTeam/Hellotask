@@ -1,0 +1,42 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+    "callbackOnFailed": "{{ &onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম ",
+          "{{worker_name_bangla}} আপা। ",
+          "আপনার, {{ task_start_time }} টা এর ",
+          "{{microarea_name}} এর ",
+          "কাজটি, গ্রাহক ক্যানসেল কোরে দিয়েছে।",
+          "আপনাকে ওঁই কাজে যেতে হবে না।",
+          "আমরা চেষ্টা কোরবো আপনাকে আরেকটি কাজ দেওয়ার। ধন্যবাদ।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+}
+  

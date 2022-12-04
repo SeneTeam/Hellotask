@@ -1,0 +1,29 @@
+_id: req_f288d7c1e2614c948ea5d9021218a10b
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1662536749525
+created: 1662448737108
+url: "{{ _.baseURL }}/graphql"
+name: deleteCustomer
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeleteCustomerById(id:
+    \"eabab98d-66c0-4973-816f-66a33e66d992\") {\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1661149206650.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

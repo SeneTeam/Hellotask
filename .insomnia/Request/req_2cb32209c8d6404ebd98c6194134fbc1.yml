@@ -1,0 +1,30 @@
+_id: req_2cb32209c8d6404ebd98c6194134fbc1
+type: Request
+parentId: fld_53a4e8b03c5341efba581ceff26b775f
+modified: 1665641872700
+created: 1664301755012
+url: "{{ _.baseURL }}/graphql"
+name: createPaymentUrl
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tcreatePaymentUrl(\n\t\tinvoiceId:
+    \"9072778f-6cae-4802-a7c7-d94eeee6fad1\"\n\t\tpaymentMethod:
+    \"sslcommerz\"\n\t) {\n\t\tpayment_url\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_2fd3350aaf364d9ca7551e3c13c348aa
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1664292128150
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

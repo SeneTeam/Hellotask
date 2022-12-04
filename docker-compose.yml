@@ -1,0 +1,108 @@
+services:
+  # api:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #     target: development
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   env_file:
+  #     - .env
+  #   command: npm run start:dev
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - postgres
+  postgres:
+    image: postgis/postgis:14-3.2
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - hellotask-core-postgres:/var/lib/postgresql/data
+
+  postgres_admin:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      # ADMINER_DESIGN: dracula
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
+  mongo:
+    image: mongo:4.4.6
+    command: mongod --port 27018
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASS}
+    volumes:
+      - ./data/mongo:/data/db
+      - ./data/mongo-init:/docker-entrypoint-initdb.d
+    ports:
+      - "27018:27018"
+  typesense:
+    image: typesense/typesense:0.23.1
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: ${TYPESENSE_API_KEY}
+      TYPESENSE_ENABLE_CORS: "true"
+    volumes:
+      - /tmp/typesense-server-data:/data
+    ports:
+      - 8108:8108
+    restart: "no"
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass 7t5xwLLiGpEcCrSz8m8Q
+    volumes:
+      - redis:/data
+
+  bullboard:
+    container_name: bullboard
+    image: deadly0/bull-board
+    restart: always
+    ports:
+      - 3030:3000
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=7t5xwLLiGpEcCrSz8m8Q
+
+  pgbackups:
+    container_name: Backup
+    image: prodrigestivill/postgres-backup-local
+    restart: always
+    volumes:
+      - ./backup:/backups
+    links:
+      - postgres:postgres
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
+      - SCHEDULE=@every 6h00m00s
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=81
+volumes:
+  hellotask-core-postgres:
+  redis:
+    driver: local

@@ -1,0 +1,51 @@
+_id: req_eb0d6c6654424cc189e5c370aa7e1360
+type: Request
+parentId: fld_0616d1a3664f429ab2311b7ee1e24b4f
+modified: 1665613606371
+created: 1662991308976
+url: "{{ _.baseURL }}/graphql"
+name: Estimate Order
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\testimateOrder(\n\t\testimateOrderInput:
+    {\n\t\t\tcustomerAddressId:
+    \"f3f9ba53-2f64-4c47-89c0-6f6d0341fddd\"\n\t\t\tpackageId:
+    \"8611f8d9-1530-4e37-8ec9-99cf5c04bedb\"\n\t\t\tworks:
+    [\n\t\t\t\t#                 { work_id: \"floor_cleaning\", time: 45
+    }\n\t\t\t\t{ work_id: \"kitchen_cleaning\", time: 45 }\n\t\t\t\t{ work_id:
+    \"furniture_cleaning\", time: 45 }\n# \t\t\t\t{ work_id: \"washing\", time:
+    45 }\n\t\t\t]\n\t\t\t#promoCode: $promo\n\t\t}\n\t) {\n\t\tpricing
+    {\n\t\t\tcommission\n\t\t\tdiscount\n\t\t\tpromo\n\t\t\ttotal\n\t\t\tworker\n\t\t}\n\t\tpromo
+    {\n\t\t\tstatus\n\t\t\terror\n\t\t\tpromo_code\n\t\t\tpromo_amount\n\t\t}\n\t\tvalidity\n\t\tworks
+    {\n\t\t\twork_id\n\t\t\twork_name\n\t\t\twork_time\n\t\t\tcommission\n\t\t\tprice\n\t\t\ttotal\n\t\t}\n\t}\n}\n\n#
+    query {\n# \testimateOrder(\n# \t\testimateOrderInput: {\n#
+    \t\t\tcustomerAddressId: \"5512b398-3dd9-4d3d-80db-87cb973197c5\"\n#
+    \t\t\tpackageId: \"8611f8d9-1530-4e37-8ec9-99cf5c04bedb\"\n# \t\t\tworks:
+    [\n# \t\t\t\t#                 { work_id: \"floor_cleaning\", time: 45 }\n#
+    \t\t\t\t{ work_id: \"kitchen_cleaning\", time: 45 }\n# \t\t\t\t{ work_id:
+    \"furniture_cleaning\", time: 45 }\n# # \t\t\t\t{ work_id: \"washing\",
+    time: 45 }\n# \t\t\t]\n# # \t\t\tpromoCode: \"PROMO-3\"\n# \t\t}\n# \t) {\n#
+    \t\tpricing {\n# # \t\t\tcommission\n# \t\t\tdiscount\n# \t\t\tpromo\n#
+    \t\t\ttotal\n# \t\t\tworker\n# # \t\t}\n# # \t\tpromo {\n# # \t\t\tstatus\n#
+    # \t\t\terror\n# # \t\t\tpromo_code\n# # \t\t\tpromo_amount\n# # \t\t}\n# #
+    \t\tvalidity\n# # \t\tworks {\n# # \t\t\twork_id\n# # \t\t\twork_name\n# #
+    \t\t\twork_time\n# # \t\t\tcommission\n# # \t\t\tprice\n# # \t\t\ttotal\n#
+    \t\t}\n# \t}\n# }\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_5a33f36426f3414fa3cf9e38adc3549f
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1662991308976
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

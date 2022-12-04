@@ -1,0 +1,109 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ &onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": [
+    "failed",
+    "busy",
+    "unreachable"
+  ],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "হ্যালোটাস্ক অফিসে ফোন করার জন্য ধন্যবাদ",
+        "{{worker_name_bangla}} আপা",
+        "{{microarea_name}} এর ",
+        "কাজটা শেষ করার জন্য ১ চাপুন। বিপদে সরাসরি পুলিশের সহায়তা নেয়ার জন্য ২ চাপুন, আর অফিসে কথা বলতে চাইলে ০ চাপুন।"
+      ],
+      "options": {
+        "1": { 
+          "goto": "END_TASK"
+        },
+        "2": {
+          "callback": "{{ &callToPoliceCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ worker_phone }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "call_999": true
+        },
+        "0": {
+          "callback": "{{ &callToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ worker_phone }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callAgent": true
+        }
+      }
+    },
+    "END_TASK": {
+      "text": [
+        "গ্রাহকের ব্যবহার ভালো লাগলে ১ চাপুন। গ্রাহকের ব্যবহার খারাপ লাগলে ২ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &endTaskCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ worker_phone }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "ENDED"
+        },
+        "2": {
+          "callback": "{{ &endTaskCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": "{{ worker_id }}",
+            "worker_phone": "{{ worker_phone }}",
+            
+          },
+          "goto": "ENDED"
+        }
+      }
+    },
+    "ENDED": {
+      "text": [
+        "আপনার কাজটি বন্ধ হয়েছে। ধন্যবাদ।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": [
+        "আপনি ভুল বাটন চেপেছেন।"
+      ],
+      "goto": "__BACK__"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "recipient": "{{ recipient }}",
+  "customerNumber": "{{ customerNumber }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "order_id": "{{ orderId }}",
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "খুশির খবর",
+        "{{worker_name_bangla}} আপা",
+        "{{microarea_name}} এর {{task_count}} দিনের কাজটা",
+        "{{trial_message_prompt}} কনফার্ম।",
+        "তাই আপনি {{task_start_date}} তারিখ",
+        "থেকে",
+        "{{task_start_times}} এ",
+        "কাজে যাবেন।",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন।",
+        "গ্রাহক এর সাথে কথা বলতে চাইলে ২ চাপুন।",
+        "আর অফিসে কথা বলতে চাইলে 0 চাপুন।",
+        "আর এসবের কিছুই না লাগলে, ৯ চেপে কলটা কেটে দিন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "2": {
+          "callback": "{{ CallToCustomerCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callCustomer": true
+        },
+        "0": {
+          "callback": "{{ CallToOfficeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "order_id": "{{ order_id }}",
+            "worker_id": " {{ worker_id }}",
+            "worker_phone": "{{ recipient }}"
+          },
+          "callbackHeaders": {
+            "X-API-KEY": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          }, 
+          "callAgent": true
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "ADDRESS": {
+      "text": [
+        "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+        "{{task_start_times}} এর",
+        "{{microarea_name}} এর",
+        "কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+        "{{order_address}} ",
+        "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "goto": "ADDRESS"
+        },
+        "9": {
+          "terminate": true
+        }
+      }
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+_id: req_b2272655293847d4a0f35ba29059e0bf
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1665575220297
+created: 1661663935016
+url: "{{ _.baseURL }}/graphql"
+name: getCustomerById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query {\n\tgetCustomerById(id:
+    \"e5c3b83b-07af-4521-9c41-216dc11e30ed\") {\n\t\tid\n\t\tphone_number\n#
+    \t\tlastLocation\n# \t\tcreatedAt\n# \t\tupdatedAt\n# \t\tcustomer_addresses
+    {\n# \t\t\tid\n# \t\t\taddress_label\n# \t\t\tis_default\n#
+    \t\t\tlocation\n# \t\t\tmicroarea{\n# \t\t\t\tname\n# \t\t\t}\n#
+    \t\t}\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1661149428610
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

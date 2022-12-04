@@ -1,0 +1,31 @@
+_id: req_79744ed2275e4abda99d55963ae72612
+type: Request
+parentId: fld_dda4e9b08d494263a379359fee5858d9
+modified: 1664873619757
+created: 1663249326079
+url: "{{ _.baseURL }}/ivr/callflow/a2615bcf-78eb-454b-87cb-94f3384301d8"
+name: Update Call Flow
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"callFlowJson": "{\r\n\t\t\"key\": \"value1\"\r\n}"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_196b297a85044131ad5b1d45689d80e2
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1663086757796
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

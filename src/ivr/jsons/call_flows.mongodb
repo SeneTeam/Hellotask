@@ -1,0 +1,817 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('hellotask-ivr');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.ivr_call_flows.drop();
+
+// Insert a few documents into the sales collection.
+db.ivr_call_flows.insertMany([
+{
+  "id": "22d9faf5-7c67-46bc-8bd7-5e9795fae2a6",
+  "name": "ORDER_PROPOSAL_CALL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ &onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ order_id }}",
+      "worker_id": "{{ worker_id }}",
+      "recipient": "{{ recipient }}",
+      "worker_phone": "{{ recipient }}"
+    },
+    "callbackOnFailedHeaders": {
+      "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+      "Content-Type": "application/json"
+    },
+    "callbackOnReceive": "{{ &onReceiveCallBackUrl }}",
+    "callbackOnReceiveMethod": "POST",
+    "callbackOnReceivePayload": {
+      "order_id": "{{ order_id }}",
+      "worker_id": "{{ worker_id }}",
+      "recipient": "{{ recipient }}",
+      "worker_phone": "{{ recipient }}"
+    },
+    "callbackOnReceiveHeaders": {
+      "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+      "Content-Type": "application/json"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম {{worker_name_bangla}} আপা, ",
+          "{{microarea_name}} থেকে {{work_count}} কাজের একটা {{task_count}} দিনের কাজ এসেছে।",
+          "এই বাসায় {{task_start_time}} থেকে কাজটা করলে আপনি কাজ শেষে {{order_worker_commission}} টাকা পাবেন।",
+          "{{trial_message_prompt}}",
+          "{{worked_in_this_address_prompt}}",
+          "{{order_holiday_prompt}}",
+          "আপনি কাজটি করতে চাইলে ১ চাপুন। আর কাজটি করতে না চাইলে ২ চেপে কাজটি ক্যান্সেল করে দিন।"
+        ],
+        "options": {
+          "1": {
+            "goto": "GET_ETA"
+          },
+          "2": {
+            "goto": "REJECT"
+          }
+        }
+      },
+      "GET_ETA": {
+        "text": [
+          "ধন্যবাদ {{worker_name_bangla}} আপা কাজটি গ্রহণ করার জন্য।",
+          "তো বলেন আপা আপনার বাসা থেকে ",
+          "{{microarea_name}}এর",
+          "গ্রাহকের বাসায় যেতে কতক্ষণ সময় লাগতে পারে?",
+          "আধা ঘণ্টার মধ্যে, যেতে পারলে ১ চাপুন। এক ঘণ্টার মধ্যে যেতে পারলে ২ চাপুন। দেড় ঘণ্টার মত সময় লাগলে, ৩ চাপুন।",
+          "আর যদি কাজটি বেশী দূরে হয়ে যায় তাহলে, চার চেপে ক্যান্সেল করে দিন।"
+        ],
+        "options": {
+          "1": {
+            "callback": "{{ &orderAcceptCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}",
+              "eta": 30
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+              "Content-Type": "application/json"
+            },
+            "goto": "END_POSITIVE"
+          },
+          "2": {
+            "callback": "{{ &orderAcceptCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}",
+              "eta": 60
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+              "Content-Type": "application/json"
+            },
+            "goto": "END_POSITIVE"
+          },
+          "3": {
+            "callback": "{{ &orderAcceptCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}",
+              "eta": 120
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+              "Content-Type": "application/json"
+            },
+            "goto": "END_POSITIVE"
+          },
+          "4": {
+            "goto": "END_NEGATIVE"
+          }
+        }
+      },
+      "REJECT": {
+        "text": [
+          "প্রিয় {{worker_name_bangla}} আপা, কাজটি করে আসুন না প্লিইজ। ",
+          "করলে {{order_worker_commission}} টাকা পাবেন। আর গ্রাহকেরও খুব উপকার হবে। ",
+          "অন্য কাউকে আর পাচ্ছি না ঐ বাসায় পাঠানোর জন্য।",
+          "কিন্তু একদমই না করতে চাইলে, আরেকবার ২ চেপে ক্যান্সেল করে দিন। আর কাজটি করতে চাইলে ১ চাপুন, প্লিজ।"
+        ],
+        "options": {
+          "1": {
+            "goto": "GET_ETA"
+          },
+          "2": {
+            "callback": "{{ &orderRejectCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "jhL9SJUa3M2hzNsF4W8YWtvvFsXrhoj5",
+              "Content-Type": "application/json"
+            },
+            "goto": "END_NEGATIVE"
+          }
+        }
+      },
+      "END_POSITIVE": {
+        "text": [
+          "অনেক ধন্যবাদ, আপা, কাজটা করতে, সম্মতি দেয়ার জন্য।",
+          "কিছুক্ষণের মধ্যে আপনাকে বিস্তারিত ঠিকানাটি বাংলায় আপনার মোবাইলে ম্যাসেজ এবং কল করে জানিয়ে দেয়া হবে।",
+          "ম্যাসেজ এবং কল পাওয়ার পরেই কেবল আপনি কাজে যাওয়ার জন্য প্রস্তুত হবেন । তার আগে না।",
+          "ভালো থাকবেন।"
+        ],
+        "terminate": true
+      },
+      "END_NEGATIVE": {
+        "text": [
+          "ঠিক আছে আপা, {{order_worker_commission}} টাকার এই কাজটা তাহলে ক্যান্সেল করে দিচ্ছি।",
+          "এরপরে কাজ এলে আবারও আপনাকে ফোন দিবো।",
+          "তখন আর ক্যান্সেল করবেন না কিন্তু। ভালো থাকবেন।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "order",
+  "createdAt": {
+    "$date": "2022-10-10T05:13:08.935Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-10T05:13:08.935Z"
+  }
+},
+{
+  "id": "6c795760-b3d0-4f1a-8d14-6fbe1612918f",
+  "name": "ORDER_WORKER_PAYMENT_NOTIFICATION",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম",
+          "{{worker_name_bangla}} আপা",
+          "আপনি {{microarea_name}} এর গ্রাহকের বাসায় {{task_count}} দিন কাজ করেছেন। ",
+          "আপনি আগামীকাল যথাসময়ে আপনার কাজের",
+          "{{order_worker_commission}} টাকা",
+          "{{worker_payment_account}} অ্যাকাউন্টে পেয়ে যাবেন। ধন্যবাদ।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "order",
+  "createdAt": {
+    "$date": "2022-10-16T12:15:50.518Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-16T12:15:50.518Z"
+  }
+},
+{
+  "id": "73f4ee90-c5c0-4e29-b0ec-298669c1b043",
+  "name": "CALLBACK_WORKER_GENERAL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "হ্যালোটাস্কে ফোন করার জন্য ধন্যবাদ, ",
+          "{{worker_name_bangla}} আপা। ",
+          "অফিসে কথা বলতে চাইলে ০ চাপুন। পাওনা টাকার হিসাব জানতে ১ চাপুন। আপনার আইডি বন্ধ রাখতে চাইলে ২ চাপুন।"
+        ],
+        "options": {
+          "0": {
+            "callback": "{{ callToOfficeCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "callAgent": true
+          },
+          "1": {
+            "goto": "DUE_BALANCE"
+          },
+          "2": {
+            "goto": "DEACTIVATE_ID"
+          }
+        }
+      },
+      "DUE_BALANCE": {
+        "text": [
+          "আপনি হ্যালোটাস্ক এর কাছে",
+          "{{worker_due}} টাকা",
+          "পাবেন। যেটি খুব দ্রুত আপনার",
+          "{{worker_payment_account}}",
+          "একাউন্টে পাঠিয়ে দেয়া হবে।"
+        ],
+        "terminate": true
+      },
+      "DEACTIVATE_ID": {
+        "text": [
+          "আপনি ২ চেপে আইডি টি কিছুদিনের জন্য বন্ধ রাখতে চেয়েছেন। আইডি টি বন্ধ করতে চাইলে আরেকবার ২ চেপে নিশ্চিত করুন। "
+        ],
+        "options": {
+          "2": {
+            "callback": "{{ deactivateIdCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "worker_id": "{{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "goto": "DEACTIVATED"
+          }
+        }
+      },
+      "DEACTIVATED": {
+        "text": [
+          "আপনি ৪ চেপে আইডি টি বন্ধ করে দিয়েছেন। এখন আপনি আর কোনো কাজের কল পাবেন না। আপনি আবার এই নাম্বারে কল করে আইডি টি চালু করতে পারবেন।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "callback",
+  "createdAt": {
+    "$date": "2022-10-19T14:52:30.383Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-19T14:52:30.383Z"
+  }
+},
+{
+  "id": "26c53eef-d2ee-49e0-b373-1410879ff8f4",
+  "name": "ORDER_WORKER_UNASSIGNED_CALL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম",
+          "{{worker_name_bangla}} আপা। ",
+          "আপনাকে {{task_start_time}} এর {{microarea_name}} এর কাজ থেকে বাদ দেওয়া হয়েছে। ",
+          "আপনাকে আর ওই বাসায় কাজে যেতে হবে না। ",
+          "আপনি {{microarea_name}} এর গ্রাহকের বাসায় {{worker_worked_days}} দিন কাজ করেছেন।",
+          "আপনি যথাসময়ে আপনার কাজের ",
+          "{{worker_due}} টাকা ",
+          "{{default_payment_method}}",
+          "অ্যাকাউন্টে পেয়ে যাবেন। ধন্যবাদ।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "order",
+  "createdAt": {
+    "$date": "2022-10-16T13:32:20.734Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-16T13:32:20.734Z"
+  }
+},
+{
+  "id": "99e12c05-c7e0-48ad-8ce7-65f76e4db309",
+  "name": "TASK_CANCEL_CALL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম ",
+          "{{worker_name_bangla}} আপা। ",
+          "আপনাকে আজকে ",
+          "{{ working_time }} টা এর ",
+          "{{microarea_name}} এর ",
+          "কাজে যেতে হবে না। গ্রাহক যেতে নিষেধ করেছেন।",
+          "মাস শেষে একদিন বেশি কাজ করে এই দিন টি পুষিয়ে দিতে হবে।",
+          "আপনি আবার আগামীকাল থেকে যথাযময়ে কাজে চলে যাবেন। ধন্যবাদ।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "task",
+  "createdAt": {
+    "$date": "2022-10-19T09:05:06.885Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-19T09:05:06.885Z"
+  }
+},
+{
+  "id": "947159d5-a1bf-41d4-83cf-0f1932c7db9a",
+  "name": "ORDER_COMFIRMATION_CALL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "customerNumber": "{{ customerNumber }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "প্রিয় {{ worker_name_bangla}} আপা",
+          "আপনার জন্য একটি সুখবর আছে। কিছুক্ষণ আগে আপনি {{ microarea_name }} এর {{ task_start_time }} এর  যে  কাজটি গ্রহণ করেছেন, সেটি গ্রাহক কনফার্ম করেছে।",
+          "আপনি এখনই আপনার মোবাইলে বাংলায় লিখিত বিস্তারিত ঠিকানা পাবেন।",
+          "তবে, গ্রাহকের ঠিকানা এখনই একবার শুনে নিতে ১ চাপুন।",
+          "গ্রাহকের সাথে কথা বলতে ২ চাপুন। কাজটি যদি ক্যান্সেল করে দিতে চান, তাহলে ৩ চাপুন। আর কোন সমস্যা থাকলে ০ চেপে অফিসে কথা বলুন।"
+        ],
+        "options": {
+          "0": {
+            "callback": "{{ callToOfficeCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "callAgent": true
+          },
+          "1": {
+            "goto": "ADDRESS"
+          },
+          "2": {
+            "callback": "{{ callToCustomerCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "goto": "CALL_CUSTOMER"
+          },
+          "3": {
+            "goto": "WORKER_REJECT"
+          }
+        }
+      },
+      "ADDRESS": {
+        "text": [
+          "ধন্যবাদ আপা। গ্রাহকের বাসার বিস্তারিত ঠিকানা বাংলায় মেসেজ করে পাঠিয়ে দেয়া হবে।",
+          "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+          "{{task_start_time}} এর",
+          "{{microarea_name}}",
+          "এর কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+          "{{order_address}}",
+          "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+        ],
+        "options": {
+          "1": {
+            "goto": "ADDRESS"
+          },
+          "9": {
+            "terminate": true
+          }
+        }
+      },
+      "CALL_CUSTOMER": {
+        "text": [
+          "এখনি গ্রাহকের সাথে আপনাকে যুক্ত করছি। গ্রাহকের সাথে কথা বলার সময় ঠিকানাটি ভালোভাবে বুঝে নিবেন এবং মহিলা সদস্য আছে কিনা শুনে নিবেন।"
+        ],
+        "callCustomer": true
+      },
+      "WORKER_ACCEPT": {
+        "text": [
+          "অনেক ধন্যবাদ, আপা। কাজটা করতে, সম্মতি দেয়ার জন্য।",
+          "কিছুক্ষণের মধ্যে আপনাকে ঠিকানাটি বাংলায় আপনার মোবাইলে ম্যাসেজ করে পাঠিয়ে দেয়া হবে।",
+          "ভালো থাকবেন।"
+        ],
+        "terminate": true
+      },
+      "WORKER_REJECT": {
+        "text": [
+          "প্রিয় {{ worker_name_bangla }} আপা, কাজটি ক্যান্সেল করে দিলে কিন্তু আপনার হ্যালোটাস্ক থেকে কাজ পাওয়ার সম্ভাবনা কমে যাবে। তবুও যদি কাজটি ক্যান্সেল করতে চান তাহলে ১ চাপুন আর করতে চাইলে ২ চাপুন। আগের অপশান গুলোতে ফেরত যেতে ৩ চাপুন।"
+        ],
+        "options": {
+          "1": {
+            "callback": "{{ orderCancelCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            }
+          },
+          "2": {
+            "callback": "{{ orderAcceptCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "goto": "WORKER_ACCEPT"
+          },
+          "3": {
+            "goto": "ROOT"
+          }
+        }
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "order",
+  "createdAt": {
+    "$date": "2022-10-19T13:33:09.898Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-19T13:33:09.898Z"
+  }
+},
+{
+  "id": "398a16c2-a2ae-47b0-8f9b-898c903d9070",
+  "name": "WORKER_TRIAL_FEEDBACK",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "আসসালামু আলাইকুম",
+          "{{worker_name_bangla}} আপা",
+          "আপনি তো {{microarea_name}} এর গ্রাহকের বাসায় কাজটি শেষ করেছেন।",
+          "এই বাসায় আপনি {{task_count}} দিন কাজ করলে {{order_worker_comission}} টাকা পাবেন।",
+          "{{order_holiday_prompt}}",
+          "আজকে ঐ গ্রাহকের বাসায় কাজ করে আপনার যদি ভাল লাগে এবং প্রতিদিন প্যাকেজে কাজ করতে চান, তাহলে ১ চাপুন। ",
+          "আর যদি ঐ গ্রাহকের বাসায় প্যাকেজটি নিতে না চান, তাহলে ২ চেপে ক্যান্সেল করে দিন।"
+        ],
+        "options": {
+          "1": {
+            "callback": "{{ orderAcceptCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": "{{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "goto": "WORKER_ACCEPT"
+          },
+          "2": {
+            "callback": "{{ orderRejectCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": "{{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "goto": "WORKER_REJECT"
+          }
+        }
+      },
+      "WORKER_ACCEPT": {
+        "text": [
+          "ধন্যবাদ আপা। কাজটি করতে সম্মতি দেওয়ার জন্য। আমরা এখন গ্রাহকের কাছ থেকে শুনবো যে তার আপনার কাজ ভাল লেগেছে কিনা। যদি গ্রাহকেরও আপনার কাজ ভালো লেগে থাকে, তাহলে আপনাকে আমরা আবার কল দিয়ে কাজটি কনফার্ম করে দেবো।"
+        ],
+        "terminate": true
+      },
+      "WORKER_REJECT": {
+        "text": [
+          "ঠিক আছে আপা,",
+          "{{order_worker_comission}} টাকার",
+          "এই কাজটা তাহলে ক্যান্সেল করে দিচ্ছি। এরপরে কাজ এলে আবারও আপনাকে ফোন দিবো। তখন আর ক্যান্সেল করবেন না কিন্তু। ভালো থাকবেন।"
+        ],
+        "terminate": true
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "task",
+  "createdAt": {
+    "$date": "2022-10-19T13:49:07.732Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-19T13:49:07.732Z"
+  }
+},
+{
+  "id": "facd59e7-ea85-4a42-bccc-d9557c9e94bc",
+  "name": "WORKER_TRIAL_SUCCESS_CALL",
+  "callFlowJson": {
+    "recipient": "{{ recipient }}",
+    "customerNumber": "{{ customerNumber }}",
+    "meta": {
+      "key": "value"
+    },
+    "callbackOnFailed": "{{ onFailedCallBackUrl }}",
+    "callbackOnFailedMethod": "POST",
+    "callbackOnFailedPayload": {
+      "order_id": "{{ orderId }}",
+      "status": "failed",
+      "worker_id": "{{ workerId }}",
+      "recipient": "{{ recipient }}"
+    },
+    "retry": 5,
+    "retryOn": [
+      "failed",
+      "busy",
+      "unreachable"
+    ],
+    "retryDelay": 5000,
+    "callFlow": {
+      "ROOT": {
+        "text": [
+          "খুশির খবর",
+          "{{worker_name_bangla}} আপা",
+          "{{microarea_name}} এর {{task_count}} দিনের কাজটা",
+          "{{trial_message_prompt}} কনফার্ম।",
+          "তাই আপনি {{task_start_date}} তারিখ",
+          "থেকে",
+          "{{task_start_times}} এ",
+          "কাজে যাবেন।",
+          "ঠিকানাটি আবার শুনতে ১ চাপুন।",
+          "গ্রাহক এর সাথে কথা বলতে চাইলে ২ চাপুন।",
+          "আর অফিসে কথা বলতে চাইলে 0 চাপুন।",
+          "আর এসবের কিছুই না লাগলে, ৯ চেপে কলটা কেটে দিন।"
+        ],
+        "options": {
+          "0": {
+            "callback": "{{ CallToOfficeCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "callAgent": true
+          },
+          "1": {
+            "goto": "ADDRESS"
+          },
+          "2": {
+            "callback": "{{ CallToCustomerCallBackUrl }}",
+            "callbackMethod": "POST",
+            "callbackPayload": {
+              "order_id": "{{ order_id }}",
+              "worker_id": " {{ worker_id }}",
+              "worker_phone": "{{ recipient }}"
+            },
+            "callbackHeaders": {
+              "X-API-KEY": "{{ x_api_key }}",
+              "Content-Type": "application/json"
+            },
+            "callCustomer": true
+          },
+          "9": {
+            "terminate": true
+          }
+        }
+      },
+      "ADDRESS": {
+        "text": [
+          "ঠিকানাটি মনোযোগ দিয়ে শুনুন ",
+          "{{task_start_times}} এর",
+          "{{microarea_name}} এর",
+          "কাজের ঠিকানা টি বলছি। ঠিকানাটি হলো ",
+          "{{order_address}} ",
+          "ঠিকানাটি আবার শুনতে ১ চাপুন। আর ঠিক মত শুনে থাকলে ৯ চাপুন।"
+        ],
+        "options": {
+          "1": {
+            "goto": "ADDRESS"
+          },
+          "9": {
+            "terminate": true
+          }
+        }
+      },
+      "INVALID": {
+        "text": [
+          "আপনি ভুল বাটন চেপেছেন।"
+        ],
+        "goto": "__BACK__"
+      }
+    }
+  },
+  "callType": "task",
+  "createdAt": {
+    "$date": "2022-10-19T13:54:22.197Z"
+  },
+  "updatedAt": {
+    "$date": "2022-10-19T13:54:22.197Z"
+  }
+}
+]);

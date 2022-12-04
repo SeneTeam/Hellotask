@@ -1,0 +1,29 @@
+_id: req_d789b456832f4db4a1100dacf8b850a7
+type: Request
+parentId: fld_e763702cc0164ecb97ff0533dc9dc10d
+modified: 1665608092367
+created: 1661663050533
+url: "{{ _.baseURL }}/graphql"
+name: getCustomer
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"query{\n\tgetCustomer{\n\t\tid,\n\t\tcustomer_addresses{\n\t\t\tid,\n\t\t\taddress_label,\n\t\t\tlocation\n\t\t\tmoholla\n\t\t}\n#
+    \t\torders {\n# \t\t\tweekend\n# \t\t\torderStartTime\n# \t\t}\n\t}\n}"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_9ca25d15d1c14994ba39cbd717bb0748
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1661149428710
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

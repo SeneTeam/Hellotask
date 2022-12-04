@@ -1,0 +1,28 @@
+_id: req_5f83a35b714a44c98fd712ae0ef174af
+type: Request
+parentId: fld_285db0b9014947129d69dc447944c5c9
+modified: 1662543677464
+created: 1662543475597
+url: "{{ _.baseURL }}/graphql"
+name: deleteWorkerById
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tdeleteWorker(id: 4) {\n\t\tid\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d137214bc266466fbf8bbac0fa967cfa
+authentication:
+  type: bearer
+  token: "{{ _.adminToken }}"
+metaSortKey: -1662454049248.7344
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

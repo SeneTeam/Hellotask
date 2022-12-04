@@ -1,0 +1,30 @@
+_id: req_bf99ab2acf454189bc91c3419027baef
+type: Request
+parentId: fld_d761a2e82c6641c4912dfa9d1f622734
+modified: 1662369182950
+created: 1662015625626
+url: "{{ _.baseURL }}/graphql"
+name: updateZone
+description: ""
+method: POST
+body:
+  mimeType: application/graphql
+  text: '{"query":"mutation {\n\tupdateZone(id: 1, updateZoneInput: { name:
+    \"মালিবাগ-খিঁলগাও-বাসাবো\", isDisabled:false })
+    {\n\t\tid\n\t\tname\n\t\tcreatedAt\n\t}\n}\n"}'
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_f1786a87858844ac8fefd23106fb8b19
+authentication:
+  type: bearer
+  token: "{{ _.customerToken }}"
+metaSortKey: -1661258241709.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

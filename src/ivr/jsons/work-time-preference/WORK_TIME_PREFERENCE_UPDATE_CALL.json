@@ -1,0 +1,166 @@
+{
+  "recipient": "{{ recipient }}",
+  "meta": {
+    "key": "value"
+  },
+  "callbackOnFailed": "{{ &onFailedCallBackUrl }}",
+  "callbackOnFailedMethod": "POST",
+  "callbackOnFailedPayload": {
+    "status": "failed",
+    "worker_id": "{{ workerId }}",
+    "recipient": "{{ recipient }}"
+  },
+  "callbackOnReceive": "{{ &onReceiveCallBackUrl }}",
+  "callbackOnReceiveMethod": "POST",
+  "callbackOnReceivePayload": {
+    "worker_id": "{{ workerId }}"
+  },
+  "callbackOnReceiveHeaders": {
+    "x_api_key": "{{ x_api_key }}",
+    "Content-Type": "application/json"
+  },
+  "retry": 5,
+  "retryOn": ["failed", "busy", "unreachable"],
+  "retryDelay": 5000,
+  "callFlow": {
+    "ROOT": {
+      "text": [
+        "আসসালামু আলাইকুম",
+        "{{worker_name_bangla}} আপা। ",
+        "আমি হ্যালোটাস্ক থেকে কম্পিউটার আপা বলছি। আগামীকাল আপনি কখন কাজ করতে চান?",
+        "কোন সময়ে কাজ দিলে আপনার জন্য সুবিধা হবে? সকাল বেলা কাজ করতে চাইলে ১ চাপুন।",
+        "দুপুরের পরে কাজ করতে চাইলে ২ চাপুন। সারাদিনের যে কোন সময় কাজ করতে চাইলে ৩ চাপুন।",
+        "আর আগামীকাল কাজ না করতে চাইলে ৪ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "morning"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "2": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "evening"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "3": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "any_time"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "4": {
+          "goto": "REQUEST_AGAIN"
+        }
+      }
+    },
+    "REQUEST_AGAIN": {
+      "text": [
+        "আগামীকাল ছুটি না নিলে হয় না আপা?",
+        "আগামীকাল সারাদিন অনেক কাজের চাপ আছে আর তাছাড়া আপনার রেটিংও তো কমে যাবে।",
+        "খুব সমস্যা না হলে আগামীকাল ছুটি নেয়ার দরকার নাই। আসোলেই ছুটি লাগলে ৪ চাপুন।",
+        "আর সকাল বেলা কাজ করতে চাইলে ১ চাপুন। দুপুরের পরে কাজ করতে চাইলে ২ চাপুন।",
+        "সারাদিনের যে কোন সময় কাজ করতে চাইলে ৩ চাপুন।"
+      ],
+      "options": {
+        "1": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "morning"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "2": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "evening"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "3": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "true",
+            "working_time": "any_time"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_POSITION"
+        },
+        "4": {
+          "callback": "{{ &updateWorkingTimeCallBackUrl }}",
+          "callbackMethod": "POST",
+          "callbackPayload": {
+            "worker_id": "{{ worker_id }}",
+            "is_agreed": "false"
+          },
+          "callbackHeaders": {
+            "x_api_key": "{{ x_api_key }}",
+            "Content-Type": "application/json"
+          },
+          "goto": "END_NEGATIVE"
+        }
+      }
+    },
+    "END_POSITION": {
+      "text": [
+        "ঠিকাছে আপা, আপনি আগামীকাল যে সময় কাজ করতে চাইলেন, সেই সময়ে কাজ আসলে আপনাকে ঠিকঠাকভাবে কাজে যেতে হবে।  ভালো থাকবেন। টা টা।"
+      ],
+      "terminate": true
+    },
+    "END_NEGATIVE": {
+      "text": [
+        "ঠিকাছে আপা। আগামীকাল  তাহলে আর কাজের জন্য কল দিবো না। আগামীকাল ছুটি কাটান। আগামীকাল  রাতে কিন্তু আবার ফোন দিবো। আর পরেরদিন কিন্তু কাজ করতেই হবে। ঠিকাছে? ভালো থাকবেন। টা টা।"
+      ],
+      "terminate": true
+    },
+    "INVALID": {
+      "text": ["আপনি ভুল বাটন চেপেছেন।"],
+      "goto": "__BACK__"
+    }
+  }
+}
